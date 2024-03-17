@@ -1,36 +1,41 @@
 import os
 import sys
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import subprocess
 
 app = Flask(__name__)
+app.secret_key = 'charan@11'
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    image_path = url_for('static', filename='abandoned_object.jpg')
+    return render_template('index.html', image=image_path)
 
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    email = request.form['email']
-    # Process the email, you can store it or send it wherever needed
-    print("Email submitted:", email)
+    if request.method == 'POST':
+        email = request.form['email']
+        trigger_emails = session.get('trigger_emails', [])
+        trigger_emails.append(email)
+        session['trigger_emails'] = trigger_emails
+        print("Email submitted:", email)
     return redirect(url_for('index'))
 
 
 @app.route('/trigger_window')
 def trigger_window():
-    # Path to your Python script within the Flask app directory
+    trigger_emails = session.get('trigger_emails', [])
     script_path = os.path.join(os.path.dirname(__file__), 'dev.py')
-
-    # Get the path to the Python interpreter of the virtual environment
     python_interpreter = sys.executable
-
-    # Run the Python script using the virtual environment's Python interpreter
-    subprocess.Popen([python_interpreter, script_path])
-
+    if trigger_emails:
+        email_str = ','.join(trigger_emails)
+        subprocess.Popen([python_interpreter, script_path, email_str])
+        session.pop('trigger_emails')
+    else:
+        subprocess.Popen([python_interpreter, script_path])
     return redirect(url_for('index'))
 
 

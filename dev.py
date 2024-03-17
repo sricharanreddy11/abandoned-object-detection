@@ -53,7 +53,6 @@ def play_buzzer():
 
 
 def email_alert(subject, body, to, image_path=None):
-    msg = EmailMessage()
     msg = MIMEMultipart()
     msg.attach(MIMEText(body, 'plain'))
     msg['subject'] = subject
@@ -114,7 +113,6 @@ while True:
             # discard weak predictions by ensuring the detected
             # probability is greater than the minimum probability
             if labels[class_id] in ("handbag", "suitcase", "backpack", "person") and confidence > CONFIDENCE:
-                # image__ = play_buzzer()
                 # scale the bounding box coordinates back relative to the
                 # size of the image, keeping in mind that YOLO actually
                 # returns the center (x, y)-coordinates of the bounding
@@ -182,11 +180,15 @@ while True:
                             time.time() - abandoned_objects[obj_id]['abandoned_time']) > threshold_for_abandonment:
                         print("Abandoned object detected!")
                         image_name = play_buzzer()
-                        email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
-                                    "charanreddy5611@gmail.com", f"./{image_name}")
-                        # email_alert("Abandoned object detected!", "Abandoned Object Detected!!!",
-                        #             "7288004377@txt.att.net")
-                        abandoned_objects[obj_id]['abandoned'] = False
+                        if len(sys.argv) > 1:
+                            email_str = sys.argv[1]
+                            trigger_emails = email_str.split(',')
+                            print(trigger_emails)
+                            email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
+                                        "charanreddy5611@gmail.com", f"./{image_name}")
+                            for email in trigger_emails:
+                                email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
+                                            email, f"./{image_name}")
                 else:
                     abandoned_objects[tuple(boxes[i])] = {'last_seen': time.time(), 'abandoned': False}
 
