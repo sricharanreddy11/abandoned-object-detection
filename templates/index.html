@@ -6,17 +6,11 @@
     <title>Abandoned Object Detection</title>
 </head>
 <body>
-    <h1>Abandoned Object Detection</h1>
-
-    <form action="/submit" method="POST">
-        <label for="email">Enter Email Address for Alerts:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <h1>Smart Video Surveillance using YOLO and OpenCV</h1>
 
     <!-- Button to trigger the Python window -->
     <form action="/trigger_window">
-        <input type="submit" value="Open Python Window">
+        <input type="submit" value="Start Surveillance">
     </form>
 
     <!-- Display abandoned object image -->
@@ -24,5 +18,11 @@
     <h2>Abandoned Object Image</h2>
     <img src="{{ image }}" alt="Abandoned Object">
     {% endif %}
+
+     <form action="/submit" method="POST">
+        <label for="email">Enter Email Address for Alerts:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
