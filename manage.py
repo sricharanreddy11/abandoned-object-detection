@@ -10,7 +10,8 @@ app.secret_key = 'charan@11'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    image_path = url_for('static', filename='abandoned_object.jpg')
+    return render_template('index.html', image=image_path)
 
 
 @app.route('/submit', methods=['POST'])
