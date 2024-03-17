@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abandoned Object Detection</title>
+</head>
+<body>
+    <h1>Abandoned Object Detection</h1>
+
+    <!-- Form to submit email for alerts -->
+    <form action="/submit" method="POST">
+        <label for="email">Enter Email Address for Alerts:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Button to trigger the Python window -->
+    <form action="/trigger_window">
+        <input type="submit" value="Open Python Window">
+    </form>
+
+    <!-- Display abandoned object image -->
+    {% if image %}
+    <h2>Abandoned Object Image</h2>
+    <img src="{{ image }}" alt="Abandoned Object">
+    {% endif %}
+</body>
+</html>
