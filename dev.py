@@ -57,9 +57,9 @@ def email_alert(subject, body, to, image_path=None):
     msg.attach(MIMEText(body, 'plain'))
     msg['subject'] = subject
     msg['to'] = to
-    user = "160220d003@gmail.com"
+    user = "noreply.alertabandonedbag@gmail.com"
     msg['from'] = user
-    password = "gqaqkxkzsfpajrux"
+    password = "umtquekarfsoaudi"
 
     if image_path:
         with open(image_path, 'rb') as fp:
@@ -113,6 +113,9 @@ while True:
             # discard weak predictions by ensuring the detected
             # probability is greater than the minimum probability
             if labels[class_id] in ("handbag", "suitcase", "backpack", "person") and confidence > CONFIDENCE:
+                # image_name = play_buzzer()
+                # email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
+                #             "ramyakoneti05@gmail.com", f"./{image_name}")
                 # scale the bounding box coordinates back relative to the
                 # size of the image, keeping in mind that YOLO actually
                 # returns the center (x, y)-coordinates of the bounding
