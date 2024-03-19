@@ -11,7 +11,8 @@ app.secret_key = 'charan@11'
 @app.route('/')
 def index():
     image_files = []
-    folder_path = "C:/Users/DELL/Desktop/Major Project/Developement Phase/abandoned-object-detection/static"
+    current_directory = os.getcwd()
+    folder_path = os.path.join(current_directory, "static")
     for filename in os.listdir(folder_path):
         if filename.startswith("abandoned_object") and filename.endswith(".jpg"):
             image_files.append(filename)
@@ -46,6 +47,11 @@ def trigger_window():
     else:
         subprocess.Popen([python_interpreter, script_path])
     return redirect(url_for('index'))
+
+
+@app.route('/detail/<int:pk>', methods=['GET'])
+def detail(pk):
+    return render_template("detail.html", id=pk)
 
 
 if __name__ == '__main__':
