@@ -21,6 +21,10 @@
             padding: 50px 0;
             text-align: center;
         }
+        .aimage{
+            width: 400px;
+            margin:20px 40px
+        }
     </style>
 </head>
 <body>
@@ -38,16 +42,22 @@
         <!-- Second Section: Abandoned Bag Image -->
         <div class="row second-section">
             <div class="col">
-                <h2>Abandoned Object Image</h2>
+                <h2>Recent Abandoned Object Images</h2>
+                <a href="detail/1">
                 {% if image1 %}
-                <img src="{{ image1 }}" alt="Abandoned Object" class="img-fluid">
+                <img id="image1" src="{{ image1 }}" alt="Abandoned Object" class="img-fluid aimage">
                 {% endif %}
+                </a>
+                <a href="detail/2">
                 {% if image2 %}
-                <img src="{{ image2 }}" alt="Abandoned Object" class="img-fluid">
+                <img id="image2" src="{{ image2 }}" alt="Abandoned Object" class="img-fluid aimage">
                 {% endif %}
+                </a>
+                <a href="detail/3">
                 {% if image3 %}
-                <img src="{{ image3 }}" alt="Abandoned Object" class="img-fluid">
+                <img id="image3" src="{{ image3 }}" alt="Abandoned Object" class="img-fluid aimage">
                 {% endif %}
+                </a>
             </div>
         </div>
 
@@ -62,5 +72,15 @@
             </div>
         </div>
     </div>
+    <script>
+        function updateImages() {
+            document.getElementById('image1').src = "{{ image1 }}";
+            document.getElementById('image2').src = "{{ image2 }}";
+            document.getElementById('image3').src = "{{ image3 }}";
+            console.log("Images Refreshed")
+        }
+        setInterval(updateImages, 2000);
+
+    </script>
 </body>
 </html>
