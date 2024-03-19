@@ -8,6 +8,7 @@ from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
+from twilio.rest import Client
 
 
 CONFIDENCE = 0.5
@@ -43,13 +44,27 @@ out = cv2.VideoWriter("output_live.avi", fourcc, 20.0, (w, h))
 sound_file = "alert.wav"
 
 
-# Function to play the buzzer sound
-def play_buzzer():
-    image_filename = f"abandoned_object_{time.strftime('%Y%m%d%H%M%S')}.jpg"
+def store_image():
+    image_filename = f"static/abandoned_object_{time.strftime('%Y%m%d%H%M%S')}.jpg"
     cv2.imwrite(image_filename, image)
-    winsound.PlaySound(sound_file, winsound.SND_ASYNC)
 
     return image_filename
+
+
+def play_buzzer():
+    winsound.PlaySound(sound_file, winsound.SND_ASYNC)
+
+
+def sms_alert(to, body):
+    account_sid = "AC9073349faa6c452b183145f47dxxxxxx"
+    auth_token = "3cf0be99e4359c68028aba5a09xxxxxx"
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        body=body,
+        from_="+19165128xxx",
+        to=to
+    )
+    print(message.sid)
 
 
 def email_alert(subject, body, to, image_path=None):
@@ -113,9 +128,11 @@ while True:
             # discard weak predictions by ensuring the detected
             # probability is greater than the minimum probability
             if labels[class_id] in ("handbag", "suitcase", "backpack", "person") and confidence > CONFIDENCE:
-                # image_name = play_buzzer()
+                # play_buzzer()
+                # image_name = store_image()
                 # email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
-                #             "ramyakoneti05@gmail.com", f"./{image_name}")
+                #             "charanreddy5611@gmail.com", f"./static/{image_name}")
+                # sms_alert("+917288004377", "Abandoned Object Detected, Immediate Attention Needed")
                 # scale the bounding box coordinates back relative to the
                 # size of the image, keeping in mind that YOLO actually
                 # returns the center (x, y)-coordinates of the bounding
@@ -182,11 +199,13 @@ while True:
                     if abandoned_objects[obj_id]['abandoned'] and (
                             time.time() - abandoned_objects[obj_id]['abandoned_time']) > threshold_for_abandonment:
                         print("Abandoned object detected!")
-                        image_name = play_buzzer()
+                        play_buzzer()
+                        image_name = store_image()
                         if len(sys.argv) > 1:
                             email_str = sys.argv[1]
                             trigger_emails = email_str.split(',')
                             print(trigger_emails)
+                            # sms_alert("+917288004377", "Abandoned Object Detected, Immediate Attention Needed")
                             email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
                                         "charanreddy5611@gmail.com", f"./{image_name}")
                             for email in trigger_emails:
