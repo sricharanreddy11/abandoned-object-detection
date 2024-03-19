@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Major Project</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <style>
         .first-section {
-            background-color: #A9A9A9; /* Grey background color */
-            padding: 50px 0;
-            text-align: center;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+        .first-section h1 {
+            font-size: 3.5rem;
+        }
+        .first-section .part1 {
+            font-weight: bold;
         }
         .second-section {
             background-color: #f0f0f0; /* White background color */
             padding: 50px 0;
             text-align: center;
         }
+        .btn.btn-light.first {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+        }
+        .form-action {
+           margin-top: 8px;
+         }
         .third-section {
-            background-color: #A9A9A9; /* Grey background color */
             padding: 50px 0;
             text-align: center;
         }
@@ -30,11 +45,16 @@
 <body>
     <div class="container-fluid">
         <!-- First Section: Title and Start Surveillance Button -->
-        <div class="row first-section">
+        <div class="row bg-dark text-white py-5 first-section">
             <div class="col">
-                <h1>Smart Video Surveillance using YOLO and OpenCV</h1>
-                <form action="/trigger_window">
-                    <input type="submit" value="Start Surveillance" class="btn btn-primary">
+                <h1 class="text-center">
+                    <span class="part1">Smart Video Surveillance</span>
+                </h1>
+                <h2 class="text-center">
+                    <span class="part1">using YOLO and OpenCV</span>
+                </h2>
+                <form action="/trigger_window" class="d-flex justify-content-center mt-3 form-action">
+                   <button type="submit" class="btn btn-light first">Start Surveillance</button>
                 </form>
             </div>
         </div>
@@ -59,19 +79,29 @@
                 {% endif %}
                 </a>
             </div>
+            <div>
+            <a href="/manual-alert" type="button" id="manual-alert-button" class="btn btn-dark">Manual Alert</a>
+            </div>
         </div>
 
         <!-- Third Section: Email Form -->
-        <div class="row third-section">
+        <div class="row bg-dark text-white py-5 third-section">
             <div class="col">
-                <form action="/submit" method="POST">
-                    <label for="email" class="form-label">Enter the Email for Alerts:</label>
-                    <input type="email" id="email" name="email" required class="form-control mb-3" placeholder="Email">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <form action="/submit" method="POST" class="row justify-content-center">
+                    <div class="col-6">
+                        <label for="email" class="form-label">Enter the Email for Alerts:</label>
+                        <input type="email" id="email" name="email" required class="form-control mb-3" placeholder="Email">
+                        <button type="submit" class="btn btn-light">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <footer class="footer mt-auto py-3 bg-dark">
+    <div class="container">
+        <span class="text-white fs-12">Project by Batch-5: Sri Charan Reddy Teegala, Ramya Koneti, Soumith Siddhamshetti</span>
+    </div>
+    </footer>
     <script>
         function updateImages() {
             document.getElementById('image1').src = "{{ image1 }}";
@@ -80,7 +110,6 @@
             console.log("Images Refreshed")
         }
         setInterval(updateImages, 2000);
-
     </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 import os
 import sys
-
+import winsound
 from flask import Flask, render_template, request, redirect, url_for, session
 import subprocess
 
@@ -32,6 +32,14 @@ def submit():
         trigger_emails.append(email)
         session['trigger_emails'] = trigger_emails
         print("Email submitted:", email)
+    return redirect(url_for('index'))
+
+
+@app.route("/manual-alert")
+def manual_alert():
+    sound_file = "alert.wav"
+    winsound.PlaySound(sound_file, winsound.SND_ASYNC)
+    print("Manually alerted")
     return redirect(url_for('index'))
 
 
