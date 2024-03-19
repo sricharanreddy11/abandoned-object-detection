@@ -2,9 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #datetime {
+            font-family: "Roboto", Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        Image Details
+                    </div>
+                    <div class="card-body">
+                        <p id="datetime"></p>
+                        {% if id == 1%}
+                            <p><strong>Camera ID</strong><br>TCX169653473C4</p>
+                            <p><strong>Terminal</strong><br>A23</p>
+                            <p><strong>Location</strong><br>Boarding Gate C</p>
+                            <p><strong>Authority in Charge</strong><br>T Sri Charan Reddy</p>
+                        {% elif id == 2%}
+                            <p><strong>Camera ID</strong><br>KRD169653473C4</p>
+                            <p><strong>Terminal</strong><br>D56</p>
+                            <p><strong>Location</strong><br>Departures Hall 8</p>
+                            <p><strong>Authority in Charge</strong><br>K Ramya</p>
+                        {% else %}
+                            <p><strong>Camera ID</strong><br>FCK169653473C4</p>
+                            <p><strong>Terminal</strong><br>M49</p>
+                            <p><strong>Location</strong><br>Baggage Claim Area</p>
+                            <p><strong>Authority in Charge</strong><br>S Soumith</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        var currentDate = new Date();
+        var datetime = currentDate.toLocaleString();
+        document.getElementById("datetime").innerHTML = datetime;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
