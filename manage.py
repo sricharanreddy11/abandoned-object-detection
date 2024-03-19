@@ -10,8 +10,17 @@ app.secret_key = 'charan@11'
 
 @app.route('/')
 def index():
-    image_path = url_for('static', filename='abandoned_object.jpg')
-    return render_template('index.html', image=image_path)
+    image_files = []
+    folder_path = "C:/Users/DELL/Desktop/Major Project/Developement Phase/abandoned-object-detection/static"
+    for filename in os.listdir(folder_path):
+        if filename.startswith("abandoned_object") and filename.endswith(".jpg"):
+            image_files.append(filename)
+    image_files.sort(key=lambda x: os.path.getmtime(os.path.join(folder_path, x)), reverse=True)
+    display_images = image_files[:3]
+    image_path1 = f"/static/{display_images[0]}"
+    image_path2 = f"/static/{display_images[1]}"
+    image_path3 = f"/static/{display_images[2]}"
+    return render_template('index.html', image1=image_path1, image2=image_path2, image3=image_path3)
 
 
 @app.route('/submit', methods=['POST'])
