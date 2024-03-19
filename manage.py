@@ -49,5 +49,10 @@ def trigger_window():
     return redirect(url_for('index'))
 
 
+@app.route('/detail/<int:pk>', methods=['GET'])
+def detail(pk):
+    return render_template("detail.html", id=pk)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
