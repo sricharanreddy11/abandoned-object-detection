@@ -49,8 +49,21 @@ To deploy this project run
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+Dashboard Page
 
+![dashboard](https://github.com/sricharanreddy11/abandoned-object-detection/assets/156604775/5e4e765f-1305-4a16-b701-0f78ae0f1be8)
+
+Real Time Images
+
+![alert](https://github.com/sricharanreddy11/abandoned-object-detection/assets/156604775/8eb2e9cc-b2e2-443a-949f-7eb427f9eacc)
+
+Detail Page
+
+![detail](https://github.com/sricharanreddy11/abandoned-object-detection/assets/156604775/37fbc40c-d4d4-4096-83ee-4e23c0d80e41)
+
+Mail Alert
+
+![mail-alert](https://github.com/sricharanreddy11/abandoned-object-detection/assets/156604775/d2228a40-f1b7-4a70-92d9-f212f3457273)
 
 ## Support
 
