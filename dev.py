@@ -132,7 +132,6 @@ while True:
                 # image_name = store_image()
                 # email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
                 #             "charanreddy5611@gmail.com", f"./static/{image_name}")
-                # sms_alert("+917288004377", "Abandoned Object Detected, Immediate Attention Needed")
                 # scale the bounding box coordinates back relative to the
                 # size of the image, keeping in mind that YOLO actually
                 # returns the center (x, y)-coordinates of the bounding
@@ -193,26 +192,6 @@ while True:
                         min_distance = distance
                         obj_id = key
 
-                # if obj_id is not None and min_distance < new_object_threshold and obj_id in abandoned_objects:
-                #     # Object found within threshold distance, update properties
-                #     abandoned_objects[obj_id]['last_seen'] = time.time()
-                #     if abandoned_objects[obj_id]['abandoned'] and (
-                #             time.time() - abandoned_objects[obj_id]['abandoned_time']) > threshold_for_abandonment:
-                #         print("Abandoned object detected!")
-                #         play_buzzer()
-                #         image_name = store_image()
-                #         if len(sys.argv) > 1:
-                #             email_str = sys.argv[1]
-                #             trigger_emails = email_str.split(',')
-                #             print(trigger_emails)
-                #             # sms_alert("+917288004377", "Abandoned Object Detected, Immediate Attention Needed")
-                #             email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
-                #                         "charanreddy5611@gmail.com", f"./{image_name}")
-                #             for email in trigger_emails:
-                #                 email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
-                #                             email, f"./{image_name}")
-                # else:
-                #     abandoned_objects[tuple(boxes[i])] = {'last_seen': time.time(), 'abandoned': False}
                 if obj_id is not None and min_distance < new_object_threshold and obj_id in abandoned_objects:
                     # Object found within threshold distance, update properties
                     abandoned_objects[obj_id]['last_seen'] = time.time()
@@ -223,7 +202,6 @@ while True:
                         image_name = store_image()
                         email_alert("Abandoned object detected!", "Immediate Attention Needed!!!",
                                     "charanreddy5611@gmail.com", f"./{image_name}")
-                        # sms_alert("+917288004377", "Abandoned Object Detected,\nImmediate Attention Needed \nCamera_id: 1169")
                         if len(sys.argv) > 1:
                             email_str = sys.argv[1]
                             trigger_emails = email_str.split(',')
